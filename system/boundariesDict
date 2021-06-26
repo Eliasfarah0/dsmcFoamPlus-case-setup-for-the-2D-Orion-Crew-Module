@@ -1,0 +1,218 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  2.4.0-MNF                             |
+|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    location    "system";
+    object      boundariesDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+// **************** //
+// PATCH BOUNDARIES //
+// **************** //
+dsmcPatchBoundaries
+(
+    boundary
+    {
+        patchBoundaryProperties
+        {
+            patchName		inlet;
+        }
+        boundaryModel		dsmcDeletionPatch;
+        dsmcDeletionPatchProperties
+        {
+            allSpecies		yes;
+        }
+    }
+
+    boundary
+    {
+        patchBoundaryProperties
+        {
+            patchName		outlet;
+        }
+        boundaryModel		dsmcDeletionPatch;
+        dsmcDeletionPatchProperties
+        {
+            allSpecies		yes;
+        }
+    }
+
+    boundary
+    {
+        patchBoundaryProperties
+        {
+            patchName		top;
+        }
+        boundaryModel		dsmcDeletionPatch;
+        dsmcDeletionPatchProperties
+        {
+            allSpecies		yes;
+        }
+    }
+
+    boundary
+    {
+        patchBoundaryProperties
+        {
+            patchName		bottom;
+        }
+        boundaryModel		dsmcDeletionPatch;
+        dsmcDeletionPatchProperties
+        {
+            allSpecies		yes;
+        }
+    }
+
+    boundary
+    {
+        patchBoundaryProperties
+        {
+            patchName		ocm;
+        }
+        boundaryModel		dsmcDiffuseWallPatch;
+        dsmcDiffuseWallPatchProperties
+        {
+            velocity		(0 0 0);
+            temperature		760; // from Orion Aerodynamics for Hypersonic Free Molecular to Continuum Conditions
+        }
+    }
+    
+    /*boundary
+    {
+        patchBoundaryProperties
+        {
+            patchName	ocm;
+        }
+        boundaryModel	dsmcMixedDiffuseSpecularWallPatch;
+        dsmcMixedDiffuseSpecularWallPatchProperties
+        {
+ 	    velocity		(0 0 0); 
+ 	    temperature		760; 	 // from Orion Aerodynamics for Hypersonic Free Molecular to Continuum Conditions
+ 	    diffuseFraction	0.5;	 // Taken from tutorial
+        }
+    }*/
+);
+
+
+
+// ****************** //
+// GENERAL BOUNDARIES //
+// ****************** //
+dsmcGeneralBoundaries
+(
+    boundary
+    {
+        generalBoundaryProperties
+        {
+            patchName			inlet;
+        }
+        boundaryModel   dsmcFreeStreamInflowPatch;
+        dsmcFreeStreamInflowPatchProperties
+        {
+            typeIds			(N2 O2 O);
+            velocity			(6830.8347 3331.6207 0);	// same as in dsmcInitialiseDict
+            translationalTemperature	211;	 	// same as in dsmcInitialiseDict
+            rotationalTemperature	211;	 	// same as in dsmcInitialiseDict
+            vibrationalTemperature	211;	 	// same as in dsmcInitialiseDict
+            electronicTemperature	0;		// same as in dsmcInitialiseDict
+            numberDensities
+            {
+                N2			3.8905e18; 	// same as in dsmcInitialiseDict
+                O2			7.6032e17; 	// same as in dsmcInitialiseDict
+		O			3.2508e17; 	// same as in dsmcInitialiseDict
+            };
+        }
+    }
+
+    boundary
+    {
+        generalBoundaryProperties
+        {
+            patchName			outlet;
+        }
+        boundaryModel   dsmcFreeStreamInflowPatch;
+        dsmcFreeStreamInflowPatchProperties
+        {
+            typeIds			(N2 O2 O);
+            velocity			(6830.8347 3331.6207 0);	// same as in dsmcInitialiseDict
+            translationalTemperature	211;	 	// same as in dsmcInitialiseDict
+            rotationalTemperature	211;	 	// same as in dsmcInitialiseDict
+            vibrationalTemperature	211;	 	// same as in dsmcInitialiseDict
+            electronicTemperature	0;		// same as in dsmcInitialiseDict
+            numberDensities
+            {
+                N2			3.8905e18; 	// same as in dsmcInitialiseDict
+                O2			7.6032e17; 	// same as in dsmcInitialiseDict
+		O			3.2508e17; 	// same as in dsmcInitialiseDict
+            };
+        }
+    }
+
+    boundary
+    {
+        generalBoundaryProperties
+        {
+            patchName			top;
+        }
+        boundaryModel   dsmcFreeStreamInflowPatch;
+        dsmcFreeStreamInflowPatchProperties
+        {
+            typeIds			(N2 O2 O);
+            velocity			(6830.8347 3331.6207 0);	// same as in dsmcInitialiseDict
+            translationalTemperature	211;	 	// same as in dsmcInitialiseDict
+            rotationalTemperature	211;	 	// same as in dsmcInitialiseDict
+            vibrationalTemperature	211;	 	// same as in dsmcInitialiseDict
+            electronicTemperature	0;		// same as in dsmcInitialiseDict
+            numberDensities
+            {
+                N2			3.8905e18; 	// same as in dsmcInitialiseDict
+                O2			7.6032e17; 	// same as in dsmcInitialiseDict
+		O			3.2508e17; 	// same as in dsmcInitialiseDict
+            };
+        }
+    }
+
+    boundary
+    {
+        generalBoundaryProperties
+        {
+            patchName			bottom;
+        }
+        boundaryModel   dsmcFreeStreamInflowPatch;
+        dsmcFreeStreamInflowPatchProperties
+        {
+            typeIds			(N2 O2 O);
+            velocity			(6830.8347 3331.6207 0);	// same as in dsmcInitialiseDict
+            translationalTemperature	211;	 	// same as in dsmcInitialiseDict
+            rotationalTemperature	211;	 	// same as in dsmcInitialiseDict
+            vibrationalTemperature	211;	 	// same as in dsmcInitialiseDict
+            electronicTemperature	0;		// same as in dsmcInitialiseDict
+            numberDensities
+            {
+                N2			3.8905e18; 	// same as in dsmcInitialiseDict
+                O2			7.6032e17; 	// same as in dsmcInitialiseDict
+		O			3.2508e17; 	// same as in dsmcInitialiseDict
+            };
+        }
+    }
+);
+
+
+
+// ***************** //
+// CYCLIC BOUNDARIES //
+// ***************** //
+dsmcCyclicBoundaries
+(
+	// EMPTY
+);
+// ************************************************************************* //

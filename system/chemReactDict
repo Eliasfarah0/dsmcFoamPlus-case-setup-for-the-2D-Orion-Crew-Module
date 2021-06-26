@@ -1,0 +1,337 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  2.4.0-MNF                             |
+|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    location    "system";
+    object      chemReactDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+reactions
+(
+	//////////////////////////////////////////////////////////////////////////////////
+	//	1	N2+N2	→	N+N+N2		dissociation type I Same	//
+	//	2	N2+O2	→	N+N+O2		dissociation type I Diss	//
+	//	3	N2+NO	→	N+N+NO		dissociation type I Diss	//
+	//	4	N2+N	→	N+N+N		dissociation type II		//
+	//	5	N2+O	→	N+N+O		dissociation type II		//
+	//										//
+	//	6	O2+N2	→	O+O+N2		dissociation type I Diss	//
+	//	7	O2+O2	→	O+O+O2		dissociation type I Same	//
+	//	8	O2+NO	→	O+O+NO		dissociation type I Diss	//
+	//	9	O2+N	→	O+O+N		dissociation type II		//
+	//	10	O2+O	→	O+O+O		dissociation type II		//
+	//										//
+	//	11	NO+N2	→	N+O+N2		dissociation type I Diss	//
+	//	12	NO+O2	→	N+O+O2		dissociation type I Diss	//
+	//	13	NO+NO	→	N+O+NO		dissociation type I Same	//
+	//	14	NO+N	→	N+O+N		dissociation type II		//
+	//	15	NO+O	→	N+O+O		dissociation type II		//
+	//										//
+	//	31	N2+O	→	NO+N		exchange reaction forward(Endo) //
+	//	32	NO+N	→	N2+O		exchange reaction reverse(Exo)	//
+	//	33	NO+O	→	O2+N		exchange reaction forward(Endo)	//
+	//	34	O2+N	→	NO+O		exchange reaction reverse(Exo)  //
+	//////////////////////////////////////////////////////////////////////////////////
+
+
+	// ============================================================================ //
+	//	1	N2+N2	→	N+N+N2		dissociation type I Same	//
+	// ============================================================================ //
+	reaction1
+	{
+		reactionModel		dissociationIonisationTypeISameSpecies;
+		dissociationIonisationTypeISameSpeciesProperties
+		{
+			reactionName				reaction1;
+			reactantMolecules			(N2 N2);
+			productsOfDissociatedMolecule		(N N);	
+			productsOfIonisedMolecule		(N2+ E-); 	// Redundant
+			heatOfReactionDissociation		-113062.8; 	// = -1.561E-18 J
+			heatOfReactionIonisation		-180798; 	// Redundant
+			allowSplitting				yes;
+			writeRatesToTerminal			no;
+		}
+	}
+
+
+	// ============================================================================ //
+	//	7	O2+O2	→	O+O+O2		dissociation type I Same	//
+	// ============================================================================ //
+	reaction7
+	{
+		reactionModel		dissociationIonisationTypeISameSpecies;
+		dissociationIonisationTypeISameSpeciesProperties
+		{
+			reactionName				reaction7;
+			reactantMolecules			(O2 O2);
+			productsOfDissociatedMolecule		(O O);		
+			productsOfIonisedMolecule		(O2+ E-); 	// Redundant
+			heatOfReactionDissociation		-59370.6; 	// = -8.197E-19 J
+			heatOfReactionIonisation		-140066; 	// Redundant
+			allowSplitting			  	yes;
+		    	writeRatesToTerminal			no;
+        	}
+	}
+
+
+	// ============================================================================ //	
+	//	13	NO+NO	→	N+O+NO		dissociation type I Same	//
+	// ============================================================================ //
+	reaction13
+	{
+		reactionModel		dissociationIonisationTypeISameSpecies;
+		dissociationIonisationTypeISameSpeciesProperties
+		{
+			reactionName				reaction13;
+		    	reactantMolecules			(NO NO);
+			productsOfDissociatedMolecule		(N O);		
+			productsOfIonisedMolecule		(NO+ E-);	// Redundant
+			heatOfReactionDissociation		-75544.2; 	// = -1.043E-18 J
+			heatOfReactionIonisation		-107457; 	// Redundant
+			allowSplitting			  	yes;
+			writeRatesToTerminal			no;
+       		}
+	}
+
+
+	// ============================================================================ //
+	//	2	N2+O2	→	N+N+O2		dissociation type I Diss	//
+	//	6	O2+N2	→	O+O+N2		dissociation type I Diss	//
+	// ============================================================================ //
+	reactions2and6
+	{
+		reactionModel		dissociationIonisationTypeIDissimilarSpecies;
+		dissociationIonisationTypeIDissimilarSpeciesProperties
+		{
+			reactionName				reactions2and6;
+			reactantMolecules			(N2 O2);
+			productsOfDissociatedMolecule		((N N) (O O));
+			productsOfIonisedMolecule		((O2+ E-) (N2+ E-));	// Redundant
+			heatOfReactionDissociationAB		-113062.8; 		// = -1.561E-18 J
+			heatOfReactionIonisationAB		-180798; 		// Redundant
+			heatOfReactionDissociationCD		-59370.6;  		// = -8.197E-19 J
+			heatOfReactionIonisationCD		-140066; 		// Redundant
+		    	allowSplitting			  	yes;
+			writeRatesToTerminal			no;
+       		}
+	}
+
+
+	// ============================================================================ //
+	//	3	N2+NO	→	N+N+NO		dissociation type I Diss	//
+	//	11	NO+N2	→	N+O+N2		dissociation type I Diss	//
+	// ============================================================================ //
+	reactions3and11
+	{
+		reactionModel		dissociationIonisationTypeIDissimilarSpecies;
+		dissociationIonisationTypeIDissimilarSpeciesProperties
+		{
+			reactionName				reactions3and11;		
+			reactantMolecules			(N2 NO);
+			productsOfDissociatedMolecule		((N N) (N O));
+			productsOfIonisedMolecule		((N2+ E-) (NO+ E-));	// Redundant
+			heatOfReactionDissociationAB		-113062.8;		// = -1.561E-18	J
+			heatOfReactionIonisationAB		-180798; 		// Redundant
+			heatOfReactionDissociationCD		-75544.2; 		// = -1.043E-18 J
+			heatOfReactionIonisationCD		-107457; 		// Redundant
+		    	allowSplitting				yes;
+			writeRatesToTerminal			no;
+       		}
+	}
+
+
+	// ============================================================================ //
+	//	8	O2+NO	→	O+O+NO		dissociation type I Diss	//
+	//	12	NO+O2	→	N+O+O2		dissociation type I Diss	//
+	// ============================================================================ //
+	reactions8and12
+	{
+		reactionModel		dissociationIonisationTypeIDissimilarSpecies;
+		dissociationIonisationTypeIDissimilarSpeciesProperties
+		{
+			reactionName				reactions8and12;
+		   	reactantMolecules			(O2 NO);
+		    	productsOfDissociatedMolecule		((O O) (N O));
+            		productsOfIonisedMolecule		((O2+ E-) (NO+ E-)); 	// Redundant
+			heatOfReactionDissociationAB		-59370.6; 		// = -8.197E-19 J
+            		heatOfReactionIonisationAB		-140066; 		// Redundant
+            		heatOfReactionDissociationCD		-75544.2; 		// = -1.043E-18 J
+            		heatOfReactionIonisationCD		-107457; 		// Redundant
+		   	allowSplitting			  	yes;
+			writeRatesToTerminal			no;
+    		}
+	}
+
+
+	// ============================================================================ //
+	//	4	N2+N	→	N+N+N		dissociation type II		//
+	// ============================================================================ //
+	reaction4
+	{
+		reactionModel		moleculeAtomDissociationIonisation;
+		moleculeAtomDissociationIonisationProperties
+		{
+			reactionName				reaction4;
+		    	reactants				(N2 N);
+		    	productsOfDissociatedMolecule		(N N);
+           		productsOfIonisedMolecule		(N2+ E-);	// Redundant
+            		productsOfIonisedAtom			(N+ E-); 	// Redundant
+			heatOfReactionDissociation		-113062.8; 	// = -1.561E-18 J
+            		heatOfReactionIonisationMolecule	-180798; 	// Redundant
+            		heatOfReactionIonisationAtom		-168613; 	// Redundant
+		    	allowSplitting			  	yes;
+			writeRatesToTerminal			no;
+     		}
+	}
+
+
+	// ============================================================================ //
+	//	10	O2+O	→	O+O+O		dissociation type II		//
+	// ============================================================================ //
+	reaction10
+	{
+		reactionModel		moleculeAtomDissociationIonisation;
+		moleculeAtomDissociationIonisationProperties
+		{
+			reactionName				reaction10;
+		    	reactants				(O2 O);
+		   	productsOfDissociatedMolecule		(O O);
+            		productsOfIonisedMolecule		(O2+ E-);	// Redundant
+            		productsOfIonisedAtom			(O+ E-); 	// Redundant
+			heatOfReactionDissociation		-59370.6; 	// = -8.197E-19 J
+            		heatOfReactionIonisationMolecule	-140066; 	// Redundant
+            		heatOfReactionIonisationAtom		-158053; 	// Redundant
+		    	allowSplitting			  	yes;
+			writeRatesToTerminal			no;
+       		}
+	}
+
+
+	// ============================================================================ //
+	//	31	N2+O	→	NO+N		exchange reaction forward(Endo) //
+	//	5	N2+O	→	N+N+O		dissociation type II		//
+	// ============================================================================ //
+	reactions31and5
+	{
+		reactionModel		dissociationIonisationExchange;
+		dissociationIonisationExchangeProperties
+		{
+			reactionName				reactions31and5;
+		    	reactantMolecules			(N2 O);
+		    	productsOfExchangeReaction		(NO N);
+			productsOfDissociatedMolecule		(N N);
+            		productsOfIonisedMolecule		(N2+ E-);	// Redundant
+            		productsOfIonisedAtom			(O+ E-);	// Redundant
+		    	heatOfReactionDiss			-113062.8;	// = -1.561E-18 J
+		    	heatOfReactionExch			-37482.4; 	// = -5.175E-19 J
+            		heatOfReactionIonP			-180798; 	// Redundant
+            		heatOfReactionIonQ			-158053; 	// Redundant
+		    	aCoeff					0.15; 		// from QKRates found in Open Source DSMC for Hypersonic Flows
+		    	bCoeff					0.15; 		// from QKRates found in Open Source DSMC for Hypersonic Flows
+            		chargedAtom				no;
+            		chargedMolecule				no;
+            		chargeExchange				no;
+		    	allowSplitting				yes;
+			writeRatesToTerminal			no;
+     		}
+	}
+
+
+	// ============================================================================ //
+	//	32	NO+N	→	N2+O		exchange reaction reverse(Exo)	//
+	//	14	NO+N	→	N+O+N		dissociation type II		//
+	// ============================================================================ //
+	reactions32and14
+	{
+		reactionModel		dissociationIonisationExchange;
+		dissociationIonisationExchangeProperties
+		{
+			reactionName				reactions32and14;			
+		    	reactantMolecules			(NO N);
+		    	productsOfExchangeReaction		(N2 O);
+			productsOfDissociatedMolecule		(N O);
+            		productsOfIonisedMolecule		(NO+ E-);	// Redundant
+            		productsOfIonisedAtom			(N+ E-);	// Redundant
+		    	heatOfReactionDiss			-75544.2; 	// = -1.043E-18
+		    	heatOfReactionExch			37482.4;	// =  5.175E-19
+            		heatOfReactionIonP			-107457;	// Redundant
+            		heatOfReactionIonQ			-168613;	// Redundant
+			aCoeff					0.033; 		// from QKRates found in Open Source DSMC for Hypersonic Flows
+			bCoeff					0.8; 		// from QKRates found in Open Source DSMC for Hypersonic Flows
+            		chargedAtom				no;
+            		chargedMolecule				no;
+            		chargeExchange				no;
+		    	allowSplitting				yes;
+			writeRatesToTerminal			no;
+     		}
+	}
+
+
+	// ============================================================================ //
+	//	33	NO+O	→	O2+N		exchange reaction forward(Endo) //
+	//	15	NO+O	→	N+O+O		dissociation type II		//
+	// ============================================================================ //
+	reactions33and15
+	{
+		reactionModel		dissociationIonisationExchange;
+		dissociationIonisationExchangeProperties
+		{
+			reactionName				reactions34and15;
+		    	reactantMolecules			(NO O);
+		    	productsOfExchangeReaction		(O2 N);
+			productsOfDissociatedMolecule		(N O);
+            		productsOfIonisedMolecule		(NO+ E-);	// Redundant
+            		productsOfIonisedAtom			(O+ E-);	// Redundant
+			heatOfReactionDiss			-75544.2; 	// = -1.043E-18 J
+		    	heatOfReactionExch			-19693.6; 	// = -2.719E-19 J
+            		heatOfReactionIonP			-107457; 	// Redundant
+            		heatOfReactionIonQ			-158053; 	// Redundant
+		    	aCoeff					0.085; 		// from QKRates found in Open Source DSMC for Hypersonic Flows
+		    	bCoeff					0.65; 		// from QKRates found in Open Source DSMC for Hypersonic Flows
+			chargedAtom				no;
+            		chargedMolecule				no;
+            		chargeExchange				no;
+			allowSplitting				yes;
+			writeRatesToTerminal			no;
+       		}
+	}
+
+
+	// ============================================================================ //
+	//	34	O2+N	→	NO+O		exchange reaction reverse(Exo)	//
+	//	9	O2+N	→	O+O+N		dissociation type II		//
+	// ============================================================================ //
+	reactions34and9
+	{
+		reactionModel		dissociationIonisationExchange;
+		dissociationIonisationExchangeProperties
+		{
+			reactionName				reactions33and9;
+		    	reactantMolecules			(O2 N);
+		    	productsOfExchangeReaction		(NO O);
+			productsOfDissociatedMolecule		(O O);
+            		productsOfIonisedMolecule		(O2+ E-);	// Redundant
+            		productsOfIonisedAtom			(N+ E-);	// Redundant
+		    	heatOfReactionDiss			-59370.6; 	// = -8.197E-19 J
+		   	heatOfReactionExch			19693.6;	// =  2.719E-19 J
+            		heatOfReactionIonP			-140066; 	// Redundant
+            		heatOfReactionIonQ			-168613; 	// Redundant
+		    	aCoeff					0.1; 		// from QKRates found in Open Source DSMC for Hypersonic Flows
+		    	bCoeff					0.1; 		// from QKRates found in Open Source DSMC for Hypersonic Flows
+           		chargedAtom				no;
+            		chargedMolecule				no;
+            		chargeExchange				no;
+		    	allowSplitting				yes;
+			writeRatesToTerminal			no;
+       		}
+	}
+);

@@ -1,0 +1,78 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  2.4.0-MNF                             |
+|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    location    "system";
+    object      controlDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+// DSMC Solver:
+// ------------
+
+application    		dsmcFoamPlus;
+nTerminalOutputs   	10; // Set how often the output is written to the terminal window
+
+
+// Time Control:
+// -------------
+
+startFrom      		latestTime;	// Most recent time step from the set of time directories
+startTime      		0;
+stopAt          	endTime;	// End time for the simulation when endTime is specified
+endTime         	0.025; 		// 
+deltaT          	1e-5;		// 
+
+
+// Data Writing:
+// -------------
+
+writeControl    	runTime; 	// Controls the timing of write output to file.
+writeInterval   	1.0e-4;  	// 
+purgeWrite    	  	3;		// 3 time directories are saved and replaced during the simulation time
+writeFormat     	ascii;		// Specifies the format of the data files
+writePrecision  	6;
+timePrecision   	10;
+writeCompression	uncompressed;	// Specifies the compression of the data files
+timeFormat		general;
+
+
+// Data Reading:
+// -------------
+
+runTimeModifiable 	yes; // Dictionaries are re-read by OpenFOAM at the beginning of each time step, so at each time step the settings can be modified
+
+
+// Time Step Control:
+// ------------------
+
+adjustTimeStep  	no; // Adjust time step according to maximum Courant number in transient simulation
+
+
+// Run-time Loadable Functionality:
+// --------------------------------
+
+functions
+(
+	forces1
+	{
+		type        		forces;
+       		functionObjectLibs	("libforces.so");
+		outputControl		outputTime;
+		log         		on;
+		patches 		("ocm.*");
+		directForceDensity 	true;
+		fDName          	fD_mixture;
+		CofR			(0 0 0);
+	}
+);
+
+// ************************************************************************* //

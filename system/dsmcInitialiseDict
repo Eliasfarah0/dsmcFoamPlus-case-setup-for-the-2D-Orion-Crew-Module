@@ -1,0 +1,38 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  2.4.0-MNF                             |
+|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    location    "system";
+    object      dsmcInitialiseDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+configurations
+(
+    configuration
+    {
+        type                    dsmcMeshFill;
+
+		numberDensities
+		{
+			N2	3.8905e18;
+    			O2	7.6032e17;
+			O	3.2508e17;			
+		};
+
+		translationalTemperature     	211; // NASA orion paper
+		rotationalTemperature        	211; // NASA orion paper
+		vibrationalTemperature       	211; // NASA orion paper
+        	electronicTemperature           0;
+		velocity        		(6830.8347 3331.6207 0); // Free-stream velocity V = 7600 m/s with angle of attack = 26 deg
+    }
+);
+
+// ************************************************************************* //

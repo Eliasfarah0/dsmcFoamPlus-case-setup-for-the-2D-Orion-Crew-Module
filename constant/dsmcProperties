@@ -1,0 +1,293 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  2.4.0-MNF                             |
+|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    location    "constant";
+    object      dsmcProperties;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+
+// General Properties
+// ~~~~~~~~~~~~~~~~~~
+
+nEquivalentParticles            6.3219E+14; // If 20 DSMC particles per cell is required. 1 DSMC particle = 6.3219E+14 Real Molecules
+chargedParticles                false;
+adsorption                      false;
+
+
+// Axisymmetric Properties
+// ~~~~~~~~~~~~~~~~~~
+
+axisymmetricSimulation      false;
+
+
+// Binary Collision Model
+// ~~~~~~~~~~~~~~~~~~~~~~
+
+BinaryCollisionModel            LarsenBorgnakkeVariableHardSphere;
+
+LarsenBorgnakkeVariableHardSphereCoeffs
+{
+    Tref                        	      273;
+    rotationalRelaxationCollisionNumber       5.0;
+    electronicRelaxationCollisionNumber       500.0;
+}
+
+
+// Collision Partner Selection Model
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+collisionPartnerSelectionModel   		 noTimeCounter;
+
+
+// Molecular species
+// ~~~~~~~~~~~~~~~~~
+
+typeIdList                      (N2 O2 NO N O N2+ O2+ NO+ N+ O+ E-);
+
+moleculeProperties
+{
+	N2
+    {
+        mass                           			46.5e-27;	// molecular mass
+        diameter                        		4.17e-10;	// molecular diameter
+        rotationalDegreesOfFreedom             		2;		// rotational DOF (for diatomic linear molecule 2DOF for rot)
+        vibrationalModes            			1;		// vibrational DOF (for diatomic molecule 1DOF for vib)
+        viscosityCoefficient           			1.656e-5;	// viscosity coefficient
+	omega                               		0.74;		// viscosity index
+        alpha						1.0;		// used in case of VSS model
+        characteristicVibrationalTemperature		(3371);		// vibration temperature
+        dissociationTemperature            		(113500);	// dissociation temperature
+        ionisationTemperature            		1135000000;	// set very high to stop ionisation taking place -- original (181000) 
+        charDissQuantumLevel				(33);
+        Zref 						(52500);	// for new vib relaxation model
+        referenceTempForZref				(3371);		// for new vib relaxation model
+        charge                                          0;
+        numberOfElectronicLevels                        1;
+        electronicEnergyList                            (0);
+        degeneracyList                                  (1);
+    }
+
+  	O2
+    {
+        mass                           			53.12e-27;	// molecular mass
+        diameter                        		4.07e-10;	// molecular diameter
+        rotationalDegreesOfFreedom	             	2;		// rotational DOF (for diatomic linear molecule 2DOF for rot)
+        vibrationalModes            			1;		// vibrational DOF (for diatomic molecule 1DOF for vib)
+        viscosityCoefficient           			1.919e-5;	// viscosity coefficient
+	omega                           	    	0.77;		// viscosity index
+        alpha						1.0;		// used in case of VSS model
+        characteristicVibrationalTemperature		(2256);		// vibration temperature
+        dissociationTemperature            		(59500);	// dissociation temperature
+        ionisationTemperature            		1135000000;	// set very high to stop ionisation taking place -- original (142000) 
+        charDissQuantumLevel				(26);
+        Zref 						(17900);	// for new vib relaxation model
+        referenceTempForZref				(2256);		// for new vib relaxation model
+        charge                                          0;
+        numberOfElectronicLevels                        1;
+        electronicEnergyList                            (0);
+        degeneracyList                                  (1);
+    }
+
+	NO
+    {
+        mass                           			49.88e-27;	// molecular mass
+        diameter                        		4.2e-10;	// molecular diameter
+        rotationalDegreesOfFreedom	             	2;		// rotational DOF (for diatomic linear molecule 2DOF for rot)
+        vibrationalModes            			1;		// vibrational DOF (for diatomic molecule 1DOF for vib)
+        viscosityCoefficient           			1.774e-5;	// viscosity coefficient
+        omega                           	    	0.79;		// viscosity index
+        alpha						1.0;		// used in case of VSS model
+        characteristicVibrationalTemperature    	(2719);		// vibration temperature
+        dissociationTemperature            		(75500);	// dissociation temperature
+        ionisationTemperature            		1135000000; 	//set very high to stop ionisation taking place -- original (108000)
+        charDissQuantumLevel				(27);
+        Zref 						(123000);	// for new vib relaxation model
+        referenceTempForZref				(2719);		// for new vib relaxation model
+        charge                                          0;
+        numberOfElectronicLevels                        1;
+        electronicEnergyList                            (0);
+        degeneracyList                                  (1);
+    }
+
+	N
+    {
+        mass                           			23.25e-27;	// molecular mass
+        diameter                        		3.00e-10;	// molecular diameter
+        rotationalDegreesOfFreedom	             	0;		// 0 for monatomic gases
+        vibrationalModes            			0;		// 0 for monatomic gases
+        omega                           	    	0.75;		// viscosity index
+        alpha						1.0;		// used in case of VSS model
+        characteristicVibrationalTemperature		();		// N/A for monatomic gases
+        dissociationTemperature            		();		// N/A for monatomic gases
+        ionisationTemperature            		1135000000; 	// set very high to stop ionisation taking place -- original (168613.6)
+        charDissQuantumLevel				();		// N/A for monatomic gases
+        Zref 						();		// N/A for monatomic gases
+        referenceTempForZref				();		// N/A for monatomic gases
+        charge                                          0;
+        numberOfElectronicLevels                        1;
+        electronicEnergyList                            (0);
+        degeneracyList                                  (1);
+    }
+
+	O
+    {
+        mass                           			26.56e-27;	// molecular mass
+        diameter                        		3.00e-10;	// molecular diameter
+        rotationalDegreesOfFreedom	             	0;		// 0 for monatomic gases
+        vibrationalModes            			0;		// 0 for monatomic gases
+        omega                           	    	0.75;		// viscosity index
+        alpha						1.0;		// used in case of VSS model
+        characteristicVibrationalTemperature		();		// N/A for monatomic gases
+        dissociationTemperature            		();		// N/A for monatomic gases
+        ionisationTemperature            		1135000000;	// set very high to stop ionisation taking place -- original (158053.5)
+        charDissQuantumLevel				();		// N/A for monatomic gases
+        Zref 						();		// N/A for monatomic gases
+        referenceTempForZref				();		// N/A for monatomic gases
+        charge                                          0;
+        numberOfElectronicLevels                        1;
+        electronicEnergyList                            (0);
+        degeneracyList                                  (1);
+    }
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////// I O N I S E D		S P E C I E S ////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+	N2+
+    {
+        mass                           			46.5e-27;	// molecular mass
+        diameter                        		4.17e-10;	// molecular diameter
+        rotationalDegreesOfFreedom             		2;		// rotational DOF (for diatomic linear molecule 2DOF for rot)
+        vibrationalModes            			1;		// vibrational DOF (for diatomic molecule 1DOF for vib)
+        viscosityCoefficient           			1.656e-5;	// viscosity coefficient
+	omega                               		0.74;		// viscosity index
+        alpha						1.0;		// used in case of VSS model
+        characteristicVibrationalTemperature		(3371);		// vibration temperature
+        dissociationTemperature            		(113500);	// dissociation temperature
+        ionisationTemperature            		0;		// set very high to stop ionisation taking place -- original (181000) 
+        charDissQuantumLevel				(33);
+        Zref 						(0);		// for new vib relaxation model
+        referenceTempForZref				(0);		// for new vib relaxation model
+        charge                                          0;
+        numberOfElectronicLevels                        1;
+        electronicEnergyList                            (0);
+        degeneracyList                                  (1);
+    }
+
+  	O2+
+    {
+        mass                           			53.12e-27;	// molecular mass
+        diameter                        		4.07e-10;	// molecular diameter
+        rotationalDegreesOfFreedom	             	2;		// rotational DOF (for diatomic linear molecule 2DOF for rot)
+        vibrationalModes            			1;		// vibrational DOF (for diatomic molecule 1DOF for vib)
+        viscosityCoefficient           			1.919e-5;	// viscosity coefficient
+	omega                           	    	0.77;		// viscosity index
+        alpha						1.0;		// used in case of VSS model
+        characteristicVibrationalTemperature		(2256);		// vibration temperature
+        dissociationTemperature            		(59500);	// dissociation temperature
+        ionisationTemperature            		0;		// set very high to stop ionisation taking place -- original (142000) 
+        charDissQuantumLevel				(26);
+        Zref 						(0);		// for new vib relaxation model
+        referenceTempForZref				(0);		// for new vib relaxation model
+        charge                                          0;
+        numberOfElectronicLevels                        1;
+        electronicEnergyList                            (0);
+        degeneracyList                                  (1);
+    }
+
+	NO+
+    {
+        mass                           			49.88e-27;	// molecular mass
+        diameter                        		4.2e-10;	// molecular diameter
+        rotationalDegreesOfFreedom	             	2;		// rotational DOF (for diatomic linear molecule 2DOF for rot)
+        vibrationalModes            			1;		// vibrational DOF (for diatomic molecule 1DOF for vib)
+        viscosityCoefficient           			1.774e-5;	// viscosity coefficient
+        omega                           	    	0.79;		// viscosity index
+        alpha						1.0;		// used in case of VSS model
+        characteristicVibrationalTemperature    	(2719);		// vibration temperature
+        dissociationTemperature            		(75500);	// dissociation temperature
+        ionisationTemperature            		0; 		//set very high to stop ionisation taking place -- original (108000)
+        charDissQuantumLevel				(27);
+        Zref 						(0);		// for new vib relaxation model
+        referenceTempForZref				(0);		// for new vib relaxation model
+        charge                                          0;
+        numberOfElectronicLevels                        1;
+        electronicEnergyList                            (0);
+        degeneracyList                                  (1);
+    }
+
+	N+
+    {
+        mass                           			23.25e-27;	// molecular mass
+        diameter                        		3.00e-10;	// molecular diameter
+        rotationalDegreesOfFreedom	             	0;		// 0 for monatomic gases
+        vibrationalModes            			0;		// 0 for monatomic gases
+        omega                           	    	0.75;		// viscosity index
+        alpha						1.0;		// used in case of VSS model
+        characteristicVibrationalTemperature		();		// N/A for monatomic gases
+        dissociationTemperature            		();		// N/A for monatomic gases
+        ionisationTemperature            		0; 		// set very high to stop ionisation taking place -- original (168613.6)
+        charDissQuantumLevel				();		// N/A for monatomic gases
+        Zref 						();		// N/A for monatomic gases
+        referenceTempForZref				();		// N/A for monatomic gases
+        charge                                          0;
+        numberOfElectronicLevels                        1;
+        electronicEnergyList                            (0);
+        degeneracyList                                  (1);
+    }
+
+	O+
+    {
+        mass                           			26.56e-27;	// molecular mass
+        diameter                        		3.00e-10;	// molecular diameter
+        rotationalDegreesOfFreedom	             	0;		// 0 for monatomic gases
+        vibrationalModes            			0;		// 0 for monatomic gases
+        omega                           	    	0.75;		// viscosity index
+        alpha						1.0;		// used in case of VSS model
+        characteristicVibrationalTemperature		();		// N/A for monatomic gases
+        dissociationTemperature            		();		// N/A for monatomic gases
+        ionisationTemperature            		0;		// set very high to stop ionisation taking place -- original (158053.5)
+        charDissQuantumLevel				();		// N/A for monatomic gases
+        Zref 						();		// N/A for monatomic gases
+        referenceTempForZref				();		// N/A for monatomic gases
+        charge                                          0;
+        numberOfElectronicLevels                        1;
+        electronicEnergyList                            (0);
+        degeneracyList                                  (1);
+    }
+
+	E-
+    {
+        mass                           			9.11e-31 ;	// molecular mass
+        diameter                        		1e-10;		// molecular diameter
+        rotationalDegreesOfFreedom	             	0;		// 0 for monatomic gases
+        vibrationalModes            			0;		// 0 for monatomic gases
+        omega                           	    	0.7;		// viscosity index
+        alpha						1.0;		// used in case of VSS model
+        characteristicVibrationalTemperature		();		// N/A for monatomic gases
+        dissociationTemperature            		();		// N/A for monatomic gases
+        ionisationTemperature            		0;		// set very high to stop ionisation taking place -- original (158053.5)
+        charDissQuantumLevel				();		// N/A for monatomic gases
+        Zref 						();		// N/A for monatomic gases
+        referenceTempForZref				();		// N/A for monatomic gases
+        charge                                          -1;
+        numberOfElectronicLevels                        1;
+        electronicEnergyList                            (0);
+        degeneracyList                                  (1);
+    }
+}
+
+
+// ************************************************************************* //

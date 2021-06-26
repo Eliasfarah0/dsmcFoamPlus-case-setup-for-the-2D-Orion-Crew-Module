@@ -1,0 +1,135 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  2.4.0-MNF                             |
+|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    location    "system";
+    object      fieldPropertiesDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+/* 	    	
+resetAtOutput:
+on : To turn off the averaging process. The accumulated information is reset at each write interval, meaning that the displayed results are only averaged for the period covered during the last write interval.
+off: To turn on  the averaging process.
+*/
+
+dsmcFields
+(
+     field
+     {
+         fieldModel          		dsmcVolFields;
+         timeProperties
+         {
+         	timeOption          	write;
+ 	    	resetAtOutput		on;
+	}
+         dsmcVolFieldsProperties
+         {
+		fieldName               N2;
+		typeIds                 (N2);
+		measureMeanFreePath		true;
+		mfpReferenceTemperature		273;
+    		measureHeatFluxShearStress 	true;
+         }
+     }
+
+     field
+     {
+         fieldModel          		dsmcVolFields;
+         timeProperties
+         {
+         	timeOption          	write;
+ 	    	resetAtOutput		on;
+         }
+          dsmcVolFieldsProperties
+         {
+		fieldName               O2;
+		typeIds                 (O2);
+		measureMeanFreePath		true;
+		mfpReferenceTemperature		273;
+    		measureHeatFluxShearStress 	true;
+         }
+     }
+
+     field
+     {
+         fieldModel          		dsmcVolFields;
+         timeProperties
+         {
+         	timeOption          	write;
+ 	    	resetAtOutput		on;
+         }
+          dsmcVolFieldsProperties
+         {
+		fieldName               NO;
+		typeIds                 (NO);
+		measureMeanFreePath		true;
+		mfpReferenceTemperature		273;
+    		measureHeatFluxShearStress 	true;
+         }
+     }
+
+     field
+     {
+         fieldModel          		dsmcVolFields;
+         timeProperties
+         {
+         	timeOption          	write;
+ 	    	resetAtOutput		on;
+         }
+          dsmcVolFieldsProperties
+         {
+		fieldName               N;
+		typeIds                 (N);
+		measureMeanFreePath		true;
+		mfpReferenceTemperature		273;
+    		measureHeatFluxShearStress 	true;
+         }
+     }
+
+     field
+     {
+         fieldModel          		dsmcVolFields;
+         timeProperties
+         {
+         	timeOption          	write;
+ 	    	resetAtOutput		on;
+         }
+          dsmcVolFieldsProperties
+         {
+		fieldName               O;
+		typeIds                 (O);
+		measureMeanFreePath		true;
+		mfpReferenceTemperature		273;
+    		measureHeatFluxShearStress 	true;
+         }
+     }
+     
+     field
+     {
+         fieldModel          		dsmcVolFields;
+         timeProperties
+         {
+         	timeOption          	write;
+ 	    	resetAtOutput		on;
+         }
+          dsmcVolFieldsProperties
+         {
+		fieldName              	mixture;
+		typeIds			(N2 O2 NO N O);
+		measureMeanFreePath		true;
+		mfpReferenceTemperature		273;
+    		measureHeatFluxShearStress 	true;
+         }
+     }
+);
+
+// ************************************************************************* //
